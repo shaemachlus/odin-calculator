@@ -1,0 +1,60 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(243, 207, 240);
+}
+
+.grid-container {
+  display: grid;
+  width: 24rem;
+  grid-template: repeat(5, 1fr) / repeat(4, 1fr);
+  margin: 10rem auto 0 auto;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 4px;
+}
+
+.display {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(238, 238, 238);
+  font-size: 4rem;
+  padding: 1rem;
+}
+
+.btn {
+  font-size: 4rem;
+  background-color: rgb(173, 194, 235);
+  border: 1px solid black;
+  color: rgb(44, 44, 44);
+}
+
+.btn-del {
+  font-size: 3rem;
+  background-color: rgb(248, 211, 166);
+}
+
+.btn-clear {
+  grid-column: 1 / 4;
+  background-color: rgb(248, 211, 166);
+}
+
+.btn-equals {
+  grid-column: 4 / 5;
+}
+
+.btn-num,
+.btn-decimal {
+  background-color: rgb(188, 198, 220);
+}
+
+.btn-op,
+.btn-equals {
+  background-color: rgb(214, 224, 245);
+}
