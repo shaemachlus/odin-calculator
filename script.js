@@ -1,11 +1,8 @@
 // to-do
 // add scientific notation for large calculations
 // highlight the operation being used
-// add keyboard support
 
-const COLOR_OP_SELECTED = "#fff";
-const COLOR_OP_UNSELECTED = "#000";
-
+const buttons = document.querySelectorAll(".btn");
 const opButtons = document.querySelectorAll(".btn-op");
 const numButtons = document.querySelectorAll(".btn-num");
 const display = document.querySelector(".display");
@@ -18,6 +15,8 @@ let isClear = true; // should the next number clear the display
 let firstNum;
 let secondNum;
 let currentOperator;
+let newBtn;
+let oldBtn;
 
 function add(num1, num2) {
   return +num1 + +num2;
@@ -129,24 +128,57 @@ function enterClear() {
   isClear = true;
 }
 
-window.addEventListener("keydown", (e) => {
-  if (!isNaN(e.key)) {
-    enterNum(e.key);
-  } else if (e.key === ".") {
-    enterDecimal();
-  } else if (e.key === "x" || e.key === "/" || e.key === "-" || e.key === "+") {
-    enterOperator(e.key);
-  } else if (e.key === "Enter" || e.key === "=") {
-    // "enter" button does not always work as expected
-    enterEquals();
-  } else if (e.key === "Backspace") {
-    enterDel();
+function colorButton(event) {
+  if (!newBtn) {
+    oldBtn = event.target;
+    oldBtn.classList.toggle("selected");
+    newBtn = true;
+  } else {
+    newBtn = event.target;
+    oldBtn.classList.toggle("selected");
+    newBtn.classList.toggle("selected");
+    oldBtn = newBtn;
   }
+}
+
+window.addEventListener("keydown", (e) => {
+  let associatedButton = Array.from(buttons).find(
+    (btn) => btn.textContent === e.key
+  );
+  // the only key where the text is not the same as e.key
+  if (e.key === "Backspace")
+    associatedButton = document.querySelector(".btn-del");
+  if (associatedButton) associatedButton.click();
 });
 
-numButtons.forEach((btn) => btn.addEventListener("click", enterNum));
-opButtons.forEach((opBtn) => opBtn.addEventListener("click", enterOperator));
-decimalButton.addEventListener("click", enterDecimal);
-equalsButton.addEventListener("click", enterEquals);
-clearButton.addEventListener("click", enterClear);
-delButton.addEventListener("click", enterDel);
+numButtons.forEach((numBtn) =>
+  numBtn.addEventListener("click", (e) => {
+    enterNum(e);
+    colorButton(e);
+  })
+);
+opButtons.forEach((opBtn) =>
+  opBtn.addEventListener("click", (e) => {
+    enterOperator(e);
+    colorButton(e);
+  })
+);
+decimalButton.addEventListener("click", (e) => {
+  enterDecimal(e);
+  colorButton(e);
+});
+
+equalsButton.addEventListener("click", (e) => {
+  enterEquals(e);
+  colorButton(e);
+});
+
+clearButton.addEventListener("click", (e) => {
+  enterClear(e);
+  colorButton(e);
+});
+
+delButton.addEventListener("click", (e) => {
+  enterDel(e);
+  colorButton(e);
+});
