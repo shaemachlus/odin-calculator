@@ -4,7 +4,8 @@
 }
 
 body {
-  background-color: rgb(243, 207, 240);
+  background-color: rgb(250, 235, 249);
+  font-family: monospace;
 }
 
 .grid-container {
@@ -29,14 +30,15 @@ body {
 }
 
 .btn {
-  font-size: 4rem;
+  font-size: 3rem;
+  font-family: monospace;
   background-color: rgb(173, 194, 235);
   border: 1px solid black;
   color: rgb(44, 44, 44);
 }
 
 .btn-del {
-  font-size: 3rem;
+  font-size: 2.5rem;
   background-color: rgb(248, 211, 166);
 }
 
@@ -57,4 +59,8 @@ body {
 .btn-op,
 .btn-equals {
   background-color: rgb(214, 224, 245);
+}
+
+.op-selected {
+  background-color: #fff;
 }
